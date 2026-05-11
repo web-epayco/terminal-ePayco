@@ -238,22 +238,24 @@
         const wrap = section?.querySelector(".audience-pin-wrap");
         const items = section ? $$(".audience-item", section) : [];
         const slides = section ? $$(".audience-slide-img", section) : [];
-        if (!section || !wrap || items.length !== 5 || slides.length !== 5) return;
+        const n = items.length;
+        if (!section || !wrap || n < 2 || slides.length !== n) return;
 
         const setActive = (index) => {
-          const i = Math.min(4, Math.max(0, index));
+          const i = Math.min(n - 1, Math.max(0, index));
           items.forEach((el, j) => el.classList.toggle("active", j === i));
         };
 
         const mm = typeof gsap.matchMedia === "function" ? gsap.matchMedia() : ScrollTrigger.matchMedia();
 
         mm.add("(min-width: 900px)", () => {
-          gsap.set(slides, { autoAlpha: 0, y: 52, scale: 0.91, transformOrigin: "50% 50%" });
+          const rest = slides.slice(1);
+          gsap.set(rest, { autoAlpha: 0, y: 52, scale: 0.91, transformOrigin: "50% 50%" });
           gsap.set(slides[0], { autoAlpha: 1, y: 0, scale: 1 });
           setActive(0);
 
           const tl = gsap.timeline({ defaults: { ease: "power2.inOut" } });
-          for (let i = 1; i < 5; i += 1) {
+          for (let i = 1; i < n; i += 1) {
             const c = i;
             tl.to(slides[i - 1], { autoAlpha: 0, y: -42, scale: 0.9, duration: 0.34, ease: "power2.in" }, c - 0.38);
             tl.fromTo(
@@ -263,12 +265,12 @@
               c - 0.2
             );
           }
-          tl.to({}, { duration: 0.5 }, 4.2);
+          tl.to({}, { duration: 0.5 }, n - 1 + 0.35);
 
           const st = ScrollTrigger.create({
             trigger: wrap,
             start: "top 96px",
-            end: () => `+=${Math.round(window.innerHeight * 4.75)}`,
+            end: () => `+=${Math.round(window.innerHeight * Math.max(3.2, (n - 1) * 1.05))}`,
             pin: true,
             pinSpacing: true,
             anticipatePin: 1,
@@ -276,7 +278,7 @@
             scrub: 0.52,
             invalidateOnRefresh: true,
             onUpdate: (self) => {
-              const step = Math.min(4, Math.floor(self.progress * 5 + 0.00001));
+              const step = Math.min(n - 1, Math.floor(self.progress * n + 0.00001));
               setActive(step);
             }
           });

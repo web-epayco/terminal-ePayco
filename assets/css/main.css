@@ -126,9 +126,9 @@
     .audience-copy p { max-width: 620px; }
     .audience-visual { position: relative; display: grid; place-items: center; min-height: 360px; margin-top: 28px; }
     .audience-visual:before { content: ""; position: absolute; width: min(72vw, 420px); height: min(72vw, 420px); border-radius: 50%; background: rgba(255,216,61,.5); }
-    .audience-visual-stack { position: relative; z-index: 2; display: grid; place-items: center; width: 100%; min-height: min(52vw, 420px); }
-    .audience-slide-img { grid-area: 1 / 1; max-height: 520px; width: auto; max-width: 100%; object-fit: contain; filter: drop-shadow(0 22px 36px rgba(0,0,0,.22)); opacity: 0; visibility: hidden; }
-    .audience-slide-img:first-of-type { opacity: 1; visibility: visible; }
+    .audience-visual-stack { position: relative; z-index: 2; display: grid; place-items: center; width: 100%; min-height: 0; }
+    .audience-slide-img { grid-area: 1 / 1; max-height: 520px; width: auto; max-width: 100%; object-fit: contain; filter: drop-shadow(0 22px 36px rgba(0,0,0,.22)); }
+    .audience-visual-stack > .audience-slide-img ~ .audience-slide-img { opacity: 0; visibility: hidden; pointer-events: none; }
     .audience-list { display: grid; gap: 16px; padding: clamp(14px, 3vw, 28px); border-radius: var(--radius-xl); background: rgba(255,255,255,.18); border: 1px solid rgba(0,0,0,.06); }
     .audience-item { display: grid; grid-template-columns: 50px 1fr; gap: 16px; align-items: center; padding: 18px; border-radius: 18px; background: #fff; box-shadow: 0 4px 12px rgba(0,0,0,.1); transition: background-color .35s ease, box-shadow .35s ease; }
     .audience-item.active { background: var(--yellow); }
