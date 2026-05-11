@@ -121,8 +121,8 @@
     .feature-card p, .mini-card p, .step-card p, .audience-item p { margin-top: 12px; color: var(--muted); font-size: clamp(.95rem, 1.6vw, 1.08rem); }
 
     .audience-section { background: radial-gradient(circle at 12% 30%, rgba(255,216,61,.5), transparent 20%), #fff; }
-    .audience-section.section-screen { overflow: visible; }
-    .audience-pin-wrap { position: relative; margin-inline: auto; width: min(calc(100% - 32px), var(--container)); max-width: var(--container); }
+    .audience-section.section-screen { overflow: visible; justify-items: center; }
+    .audience-pin-stage { position: relative; width: 100%; }
     .audience-grid { display: grid; align-items: center; gap: clamp(28px, 6vw, 70px); width: 100%; }
     .audience-grid > * { min-width: 0; }
     .audience-copy p { max-width: 620px; }

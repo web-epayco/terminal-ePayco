@@ -235,7 +235,7 @@
       function initAudienceScrollStory() {
         if (!window.gsap || !window.ScrollTrigger || reduceMotion) return;
         const section = $("#funciona");
-        const wrap = section?.querySelector(".audience-pin-wrap");
+        const wrap = section?.querySelector(".audience-pin-stage");
         const items = section ? $$(".audience-item", section) : [];
         const slides = section ? $$(".audience-slide-img", section) : [];
         const n = items.length;
