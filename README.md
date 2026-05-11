@@ -31,7 +31,23 @@ Los archivos bajo `assets/fonts/` corresponden a la familia **Davivienda** en fo
 
 ## GitHub Pages
 
-Configura el repositorio con **Pages** apuntando a la rama principal y carpeta raíz (`/`). La entrada es `index.html`.
+Sitio publicado desde la rama **main** y carpeta raíz (`/`).
+
+**URL:** https://web-epayco.github.io/terminal-ePayco/
+
+En la raíz hay un archivo vacío `.nojekyll` para que GitHub Pages no procese el sitio con Jekyll y sirva los estáticos tal cual.
+
+## Commits (sin coautor Cursor)
+
+Este repo usa `core.hooksPath` apuntando a `.githooks/`. El hook `commit-msg` elimina líneas con `Co-authored-by: Cursor` o `cursoragent@cursor.com` antes de finalizar el commit.
+
+Tras clonar, si el hook no corre:
+
+```bash
+git config core.hooksPath .githooks
+```
+
+En Cursor: **Settings → Agents → Attribution** y desactiva **Commit Attribution** (así no se añade el trailer al editor). El hook actúa como respaldo si algo se colara.
 
 ## Cuenta GitHub
 

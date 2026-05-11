@@ -1,0 +1,7 @@
+#!/bin/sh
+# Quita trailers de Cursor del mensaje de commit (no versionar coautoría de la IA).
+msg="$1"
+[ -f "$msg" ] || exit 0
+tmp="${msg}.strip.$$"
+grep -iEv 'co-authored-by:[[:space:]]*cursor|cursoragent@cursor\.com' "$msg" > "$tmp" && mv "$tmp" "$msg"
+exit 0
