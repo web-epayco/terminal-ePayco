@@ -1,3 +1,6 @@
+# Copia monolítica local (no versionar; el sitio en repo es index.html + assets/)
+terminal_epayco_figma_style_canvas.html
+
 .DS_Store
 Thumbs.db
 *.log
