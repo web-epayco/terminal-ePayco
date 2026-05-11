@@ -194,7 +194,7 @@
         const visual = $(".hero-visual");
         if (!visual) return;
         const phone = $(".hero-phone");
-        const terminal = $(".hero-terminal");
+        const terminalWrap = $(".hero-terminal-wrap");
         const orbOne = $(".orb-one");
         const orbTwo = $(".orb-two");
         visual.addEventListener("pointermove", (event) => {
@@ -202,15 +202,32 @@
           const x = (event.clientX - rect.left) / rect.width - .5;
           const y = (event.clientY - rect.top) / rect.height - .5;
           gsap.to(phone, { x: x * 18, y: y * 14, rotate: x * 2, duration: .28, ease: "power2.out" });
-          gsap.to(terminal, { x: x * -24, y: y * -16, rotate: 6 + x * -3, duration: .28, ease: "power2.out" });
+          if (terminalWrap) gsap.to(terminalWrap, { x: x * -24, y: y * -16, rotate: 6 + x * -3, duration: .28, ease: "power2.out" });
           gsap.to(orbOne, { x: x * 34, y: y * 24, duration: .32, ease: "power2.out" });
           gsap.to(orbTwo, { x: x * -26, y: y * -20, duration: .32, ease: "power2.out" });
         });
         visual.addEventListener("pointerleave", () => {
           gsap.to(phone, { x: 0, y: 0, rotate: .5, duration: .7, ease: "elastic.out(1, .55)" });
-          gsap.to(terminal, { x: 0, y: 0, rotate: 6, duration: .7, ease: "elastic.out(1, .55)" });
+          if (terminalWrap) gsap.to(terminalWrap, { x: 0, y: 0, rotate: 6, duration: .7, ease: "elastic.out(1, .55)" });
           gsap.to([orbOne, orbTwo], { x: 0, y: 0, duration: .7, ease: "power3.out" });
         });
+      }
+
+      function initNfcTerminalHint() {
+        if (reduceMotion || !window.gsap) return;
+        const img = $(".hero-terminal");
+        if (!img) return;
+        gsap.fromTo(
+          img,
+          { filter: "drop-shadow(0 20px 34px rgba(0,0,0,.24))" },
+          {
+            filter: "brightness(1.12) drop-shadow(0 0 22px rgba(255,216,61,0.5))",
+            repeat: -1,
+            yoyo: true,
+            duration: 1.05,
+            ease: "sine.inOut"
+          }
+        );
       }
 
       function initGsap() {
@@ -222,23 +239,23 @@
         document.body.classList.remove("no-gsap");
         gsap.registerPlugin(ScrollTrigger);
         ScrollTrigger.config({ ignoreMobileResize: true });
-        gsap.set(".reveal", { autoAlpha: 0, y: 22 });
+        gsap.set("[data-section] .reveal", { autoAlpha: 0, y: 22 });
 
         $$("[data-section]").forEach((section) => {
           const staggerItems = section.querySelectorAll("[data-stagger] > .reveal, [data-stagger] > article, [data-stagger] > details");
-          const normalReveals = section.querySelectorAll(":scope .reveal:not([data-stagger] .reveal)");
-          const tl = gsap.timeline({
-            defaults: { duration: .42, ease: "power2.out" },
-            scrollTrigger: {
-              trigger: section,
-              start: "top 90%",
-              end: "bottom 8%",
-              toggleActions: "play none none reverse",
-              invalidateOnRefresh: true
-            }
+          const normalReveals = [...section.querySelectorAll(".reveal")].filter((el) => !el.closest("[data-stagger]"));
+          const tl = gsap.timeline({ paused: true, defaults: { duration: .48, ease: "power2.out" } });
+          if (normalReveals.length) tl.to(normalReveals, { autoAlpha: 1, y: 0, stagger: .06 }, 0);
+          if (staggerItems.length) tl.to(staggerItems, { autoAlpha: 1, y: 0, stagger: .04 }, .07);
+          ScrollTrigger.create({
+            trigger: section,
+            start: "top bottom",
+            end: "bottom top",
+            animation: tl,
+            toggleActions: "play none none reverse",
+            invalidateOnRefresh: true,
+            fastScrollEnd: true
           });
-          if (normalReveals.length) tl.to(normalReveals, { autoAlpha: 1, y: 0, stagger: .055 }, 0);
-          if (staggerItems.length) tl.to(staggerItems, { autoAlpha: 1, y: 0, stagger: .035 }, .04);
         });
 
         gsap.to(".hero-phone", { yPercent: -8, ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true } });
@@ -247,10 +264,19 @@
         gsap.fromTo(".floating-ticket", { y: 8 }, { y: -8, duration: 2.5, ease: "sine.inOut", repeat: -1, yoyo: true });
         gsap.fromTo(".scroll-cue", { y: -4, opacity: .65 }, { y: 5, opacity: 1, duration: 1.35, ease: "sine.inOut", repeat: -1, yoyo: true });
 
+        initNfcTerminalHint();
+
+        const refreshSt = () => ScrollTrigger.refresh();
+        requestAnimationFrame(() => {
+          refreshSt();
+          requestAnimationFrame(refreshSt);
+        });
+        window.addEventListener("load", refreshSt, { once: true });
+
         let resizeTimer;
         window.addEventListener("resize", () => {
           window.clearTimeout(resizeTimer);
-          resizeTimer = window.setTimeout(() => ScrollTrigger.refresh(), 180);
+          resizeTimer = window.setTimeout(refreshSt, 160);
         });
       }
 
