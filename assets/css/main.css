@@ -291,7 +291,7 @@
       .desktop-nav, .header-actions { display: flex; }
       .menu-button { display: none; }
       .hero-grid, .audience-grid, .benefits-layout, .measurements-card, .purchase-grid, .faq-grid, .newsletter-card, .cta-grid, .split-heading { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
-      .audience-list { align-self: start; }
+      .audience-list { align-self: center; }
       .hero-copy { padding-top: 42px; }
       .four-cols { grid-template-columns: repeat(4, 1fr); }
       .mini-card-grid { grid-template-columns: repeat(2, 1fr); }
