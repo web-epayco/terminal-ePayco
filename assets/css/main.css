@@ -125,8 +125,16 @@
     .audience-pin-stage { position: relative; width: 100%; }
     .audience-grid { display: grid; align-items: center; gap: clamp(28px, 6vw, 70px); width: 100%; }
     .audience-grid > * { min-width: 0; }
-    .audience-copy p { max-width: 620px; }
-    .audience-visual { position: relative; display: grid; place-items: center; min-height: 360px; margin-top: 28px; }
+    .audience-copy {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: clamp(16px, 2.4vw, 24px);
+    }
+    .audience-copy .eyebrow { margin-bottom: 0; }
+    .audience-copy p { max-width: 620px; margin-top: 0; }
+    .audience-copy .audience-visual { margin-top: 0; }
+    .audience-visual { position: relative; display: grid; place-items: center; min-height: 360px; }
     .audience-visual:before { content: ""; position: absolute; width: min(72vw, 420px); height: min(72vw, 420px); border-radius: 50%; background: rgba(255,216,61,.5); }
     .audience-visual-stack { position: relative; z-index: 2; display: grid; place-items: center; width: 100%; min-height: 0; }
     .audience-slide-img { grid-area: 1 / 1; max-height: 520px; width: auto; max-width: 100%; object-fit: contain; filter: drop-shadow(0 22px 36px rgba(0,0,0,.22)); }
@@ -303,21 +311,45 @@
       .footer-grid { grid-template-columns: .9fr 1.1fr; }
     }
 
+    @media (min-width: 900px) and (max-width: 1400px) {
+      .audience-section .audience-copy {
+        gap: clamp(18px, 2.2vw, 28px);
+      }
+      .audience-section .audience-copy h2 {
+        font-size: clamp(1.72rem, 2.75vw, 2.45rem);
+        line-height: 1.06;
+      }
+      .audience-section .audience-copy p {
+        font-size: clamp(0.93rem, 1.32vw, 1.12rem);
+        line-height: 1.32;
+      }
+      .audience-section .audience-copy .eyebrow {
+        padding: 6px 10px;
+        font-size: .78rem;
+      }
+      .audience-grid { gap: clamp(22px, 3.2vw, 44px); }
+      .audience-visual { min-height: 0; }
+      .audience-visual:before { width: min(52vw, 300px); height: min(52vw, 300px); }
+      .audience-slide-img { max-height: min(40vh, 380px); }
+      .audience-section .audience-list { gap: 14px; }
+    }
+
     @media (min-width: 900px) and (max-height: 920px) {
       .audience-section.section-screen {
         min-height: auto;
         align-items: start;
         padding-block: clamp(18px, 2.4vh, 40px);
       }
-      .audience-section .audience-copy .eyebrow { margin-bottom: 8px; padding: 5px 9px; font-size: .74rem; }
+      .audience-section .audience-copy { gap: clamp(12px, 1.8vh, 20px); }
+      .audience-section .audience-copy .eyebrow { margin-bottom: 0; padding: 5px 9px; font-size: .74rem; }
       .audience-section .audience-copy h2 {
-        font-size: clamp(1.65rem, 2.6vw, 2.45rem);
+        font-size: clamp(1.55rem, 2.4vw, 2.2rem);
         line-height: 1.03;
       }
       .audience-section .audience-copy p {
         font-size: clamp(0.88rem, 1.25vw, 1.05rem);
         line-height: 1.28;
-        margin-top: 8px;
+        margin-top: 0;
       }
       .audience-grid { gap: clamp(14px, 2.2vw, 32px); }
       .audience-visual { min-height: 0; margin-top: 10px; }
@@ -332,8 +364,9 @@
 
     @media (min-width: 900px) and (max-height: 760px) {
       .audience-section.section-screen { padding-block: clamp(14px, 2vh, 28px); }
-      .audience-section .audience-copy h2 { font-size: clamp(1.45rem, 2.4vw, 2.1rem); }
-      .audience-section .audience-copy p { font-size: clamp(0.82rem, 1.15vw, 0.98rem); margin-top: 6px; }
+      .audience-section .audience-copy { gap: clamp(10px, 1.5vh, 16px); }
+      .audience-section .audience-copy h2 { font-size: clamp(1.38rem, 2.2vw, 1.95rem); }
+      .audience-section .audience-copy p { font-size: clamp(0.82rem, 1.15vw, 0.98rem); margin-top: 0; }
       .audience-grid { gap: clamp(12px, 1.8vw, 24px); }
       .audience-visual { margin-top: 8px; }
       .audience-visual:before { width: min(42vw, 220px); height: min(42vw, 220px); }
