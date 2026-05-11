@@ -232,6 +232,131 @@
         );
       }
 
+      function initScrollLayersParallax() {
+        if (!window.gsap || !window.ScrollTrigger || reduceMotion) return;
+        const main = $("#main");
+        if (!main) return;
+        const sections = [...main.querySelectorAll("section[data-section]")];
+        sections.forEach((section, i) => {
+          section.style.zIndex = String(10 + i);
+        });
+
+        const mm = typeof gsap.matchMedia === "function" ? gsap.matchMedia() : ScrollTrigger.matchMedia();
+        mm.add("(min-width: 768px)", () => {
+          sections.forEach((section, i) => {
+            if (i === 0) return;
+            gsap.fromTo(
+              section,
+              { y: 96, scale: 0.982, transformOrigin: "50% 0%" },
+              {
+                y: 0,
+                scale: 1,
+                ease: "none",
+                scrollTrigger: {
+                  trigger: section,
+                  start: "top bottom",
+                  end: "top 12%",
+                  scrub: 0.72,
+                  invalidateOnRefresh: true
+                }
+              }
+            );
+          });
+        });
+
+        $$(".audience-visual img, .measure-visual img").forEach((img) => {
+          const sec = img.closest("section[data-section]");
+          if (!sec) return;
+          gsap.fromTo(
+            img,
+            { yPercent: 5 },
+            {
+              yPercent: -11,
+              ease: "none",
+              scrollTrigger: {
+                trigger: sec,
+                start: "top bottom",
+                end: "bottom top",
+                scrub: 0.5,
+                invalidateOnRefresh: true
+              }
+            }
+          );
+        });
+
+        const benefits = $("#beneficios");
+        const benefitsGrid = benefits ? benefits.querySelector(".mini-card-grid") : null;
+        if (benefits && benefitsGrid) {
+          gsap.to(benefitsGrid, {
+            y: -22,
+            ease: "none",
+            scrollTrigger: {
+              trigger: benefits,
+              start: "top bottom",
+              end: "bottom top",
+              scrub: 0.35,
+              invalidateOnRefresh: true
+            }
+          });
+        }
+
+        const purchase = $("#compra");
+        const purchaseAside = purchase ? purchase.querySelector(".product-buy-card") : null;
+        if (purchase && purchaseAside) {
+          gsap.fromTo(
+            purchaseAside,
+            { y: 28 },
+            {
+              y: 0,
+              ease: "none",
+              scrollTrigger: {
+                trigger: purchase,
+                start: "top bottom",
+                end: "top 35%",
+                scrub: 0.55,
+                invalidateOnRefresh: true
+              }
+            }
+          );
+        }
+
+        const cta = document.querySelector(".dark-cta");
+        const ctaGrid = cta ? cta.querySelector(".cta-grid") : null;
+        if (cta && ctaGrid) {
+          gsap.fromTo(
+            ctaGrid,
+            { y: 48 },
+            {
+              y: 0,
+              ease: "none",
+              scrollTrigger: {
+                trigger: cta,
+                start: "top bottom",
+                end: "top 22%",
+                scrub: 0.6,
+                invalidateOnRefresh: true
+              }
+            }
+          );
+        }
+
+        const faq = $("#faq");
+        const faqList = faq ? faq.querySelector(".faq-list") : null;
+        if (faq && faqList) {
+          gsap.to(faqList, {
+            y: -20,
+            ease: "none",
+            scrollTrigger: {
+              trigger: faq,
+              start: "top bottom",
+              end: "bottom top",
+              scrub: true,
+              invalidateOnRefresh: true
+            }
+          });
+        }
+      }
+
       function initGsap() {
         if (!window.gsap || !window.ScrollTrigger || reduceMotion) {
           document.body.classList.add("no-gsap");
@@ -259,6 +384,8 @@
             fastScrollEnd: true
           });
         });
+
+        initScrollLayersParallax();
 
         gsap.to(".hero-phone", { yPercent: -8, ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true } });
         gsap.to(".hero-terminal", { yPercent: 10, rotate: 3, ease: "none", scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true } });
