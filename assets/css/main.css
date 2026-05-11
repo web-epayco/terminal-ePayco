@@ -132,10 +132,6 @@
       gap: clamp(16px, 2.4vw, 24px);
     }
     .audience-copy .eyebrow { margin-bottom: 0; }
-    .audience-section .audience-copy h2 {
-      font-size: clamp(1.75rem, 5.2vw, 2.45rem);
-      line-height: 1.14;
-    }
     .audience-copy p { max-width: 620px; margin-top: 0; }
     .audience-copy .audience-visual { margin-top: 0; }
     .audience-visual { position: relative; display: grid; place-items: center; min-height: 360px; }
@@ -374,20 +370,6 @@
       .audience-item span { width: 36px; height: 36px; font-size: .76rem; border-radius: 10px; }
     }
 
-    @media (min-width: 900px) and (max-width: 1919px) {
-      .audience-section .audience-copy h2 {
-        font-size: 3.25rem;
-        line-height: 1.14;
-      }
-    }
-
-    @media (min-width: 1920px) {
-      .audience-section .audience-copy h2 {
-        font-size: 4.25rem;
-        line-height: 1.08;
-      }
-    }
-
     @media (min-width: 1180px) and (min-height: 760px) {
       body { scroll-snap-type: none; }
       .section-screen { scroll-snap-align: none; }
@@ -405,6 +387,10 @@
       .audience-visual-stack { min-height: 260px; }
       .audience-slide-img { max-height: 360px; }
       .angled-phone { display: none; }
+      #funciona .audience-copy > h2 {
+        font-size: clamp(1.75rem, 5.2vw, 2.45rem);
+        line-height: 1.14;
+      }
     }
 
     @media (max-width: 560px) {
@@ -414,7 +400,7 @@
       .pill { flex: 1; justify-content: center; padding-inline: 10px; font-size: .82rem; }
       .hero h1 { font-size: clamp(2.8rem, 17vw, 4.2rem); }
       .hero p, .split-heading p, .audience-copy p, .benefits-copy p, .measure-copy p, .purchase-heading p, .faq-copy p { font-size: 1rem; }
-      .audience-section .audience-copy h2 { font-size: clamp(1.82rem, 6.8vw, 2.42rem); line-height: 1.14; }
+      #funciona .audience-copy > h2 { font-size: clamp(1.82rem, 6.8vw, 2.42rem); line-height: 1.14; }
       .feature-card { min-height: auto; }
       .audience-item { grid-template-columns: 42px 1fr; padding: 14px; }
       .audience-item span { width: 42px; height: 42px; }
@@ -427,5 +413,19 @@
       .section-screen { min-height: auto; padding: 34px 0; }
       .hero-grid { grid-template-columns: 1fr 430px; }
       .hero-visual { min-height: 360px; }
+    }
+
+    @media (min-width: 900px) and (max-width: 1919px) {
+      #funciona .audience-copy > h2 {
+        font-size: 52px;
+        line-height: 1.14;
+      }
+    }
+
+    @media (min-width: 1920px) {
+      #funciona .audience-copy > h2 {
+        font-size: 68px;
+        line-height: 1.08;
+      }
     }
 
