@@ -270,9 +270,10 @@
           const st = ScrollTrigger.create({
             trigger: wrap,
             start: "top 96px",
-            end: () => `+=${Math.round(window.innerHeight * Math.max(3.2, (n - 1) * 1.05))}`,
+            end: () => `+=${Math.round(window.innerHeight * Math.max(4.25, (n - 1) * 1.15))}`,
             pin: true,
             pinSpacing: true,
+            pinReparent: true,
             anticipatePin: 1,
             animation: tl,
             scrub: 0.52,
@@ -311,6 +312,7 @@
         mm.add("(min-width: 768px)", () => {
           sections.forEach((section, i) => {
             if (i === 0) return;
+            if (section.id === "funciona") return;
             gsap.fromTo(
               section,
               { y: 96, scale: 0.982, transformOrigin: "50% 0%" },

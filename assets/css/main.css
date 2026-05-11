@@ -121,8 +121,10 @@
     .feature-card p, .mini-card p, .step-card p, .audience-item p { margin-top: 12px; color: var(--muted); font-size: clamp(.95rem, 1.6vw, 1.08rem); }
 
     .audience-section { background: radial-gradient(circle at 12% 30%, rgba(255,216,61,.5), transparent 20%), #fff; }
-    .audience-pin-wrap { position: relative; }
-    .audience-grid { display: grid; align-items: center; gap: clamp(28px, 6vw, 70px); }
+    .audience-section.section-screen { overflow: visible; }
+    .audience-pin-wrap { position: relative; margin-inline: auto; width: min(calc(100% - 32px), var(--container)); max-width: var(--container); }
+    .audience-grid { display: grid; align-items: center; gap: clamp(28px, 6vw, 70px); width: 100%; }
+    .audience-grid > * { min-width: 0; }
     .audience-copy p { max-width: 620px; }
     .audience-visual { position: relative; display: grid; place-items: center; min-height: 360px; margin-top: 28px; }
     .audience-visual:before { content: ""; position: absolute; width: min(72vw, 420px); height: min(72vw, 420px); border-radius: 50%; background: rgba(255,216,61,.5); }
@@ -289,6 +291,7 @@
       .desktop-nav, .header-actions { display: flex; }
       .menu-button { display: none; }
       .hero-grid, .audience-grid, .benefits-layout, .measurements-card, .purchase-grid, .faq-grid, .newsletter-card, .cta-grid, .split-heading { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+      .audience-list { align-self: start; }
       .hero-copy { padding-top: 42px; }
       .four-cols { grid-template-columns: repeat(4, 1fr); }
       .mini-card-grid { grid-template-columns: repeat(2, 1fr); }
