@@ -3,7 +3,9 @@
       const $ = (selector, parent = document) => parent.querySelector(selector);
       const $$ = (selector, parent = document) => Array.from(parent.querySelectorAll(selector));
       const money = new Intl.NumberFormat("es-CO", { style: "currency", currency: PRODUCT.currency, maximumFractionDigits: 0 });
-      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      // Landing comercial (GitHub Pages / WordPress + Elementor): animaciones siempre activas.
+      // No usar prefers-reduced-motion aquí para que GSAP y microinteracciones coincidan con la demo final.
+      const reduceMotion = false;
       const storedQty = Number(localStorage.getItem("terminalEpaycoQty"));
       const state = { selectedQty: 1, cartQty: Number.isFinite(storedQty) && storedQty >= 0 ? storedQty : 0 };
 
