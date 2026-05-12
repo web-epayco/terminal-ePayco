@@ -254,6 +254,12 @@
           gsap.set(slides[0], { autoAlpha: 1, y: 0, scale: 1 });
           setActive(0);
 
+          const headerPinInset = () => {
+            const raw = getComputedStyle(document.documentElement).getPropertyValue("--header-h").trim();
+            const h = parseFloat(raw);
+            return (Number.isFinite(h) ? h : 82) + 28;
+          };
+
           const tl = gsap.timeline({ defaults: { ease: "power2.inOut" } });
           for (let i = 1; i < n; i += 1) {
             const c = i;
@@ -269,8 +275,9 @@
 
           const st = ScrollTrigger.create({
             trigger: wrap,
-            start: "top 96px",
-            end: () => `+=${Math.round(window.innerHeight * Math.max(4.25, (n - 1) * 1.15))}`,
+            start: () => `top top+=${Math.round(headerPinInset())}px`,
+            end: () =>
+              `+=${Math.round(window.innerHeight * Math.max(2.45, (n - 1) * 0.62))}`,
             pin: true,
             pinSpacing: true,
             pinReparent: true,
@@ -278,6 +285,9 @@
             animation: tl,
             scrub: 0.52,
             invalidateOnRefresh: true,
+            onToggle: (self) => {
+              wrap.classList.toggle("is-audience-pinned", self.isActive);
+            },
             onUpdate: (self) => {
               const step = Math.min(n - 1, Math.floor(self.progress * n + 0.00001));
               setActive(step);
@@ -287,6 +297,7 @@
           return () => {
             st.kill();
             tl.kill();
+            wrap.classList.remove("is-audience-pinned");
             gsap.set(slides, { clearProps: "all" });
             setActive(0);
           };
